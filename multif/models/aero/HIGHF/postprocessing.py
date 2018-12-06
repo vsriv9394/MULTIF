@@ -504,8 +504,8 @@ def HF_Compute_Thrust (options):
     iCons1 = 0 #idHeader['Density']
     iCons2 = 1 #idHeader['X-Momentum']
     iCons3 = 2 #idHeader['Y-Momentum']
-    iCons4 = 3 #idHeader['Energy']
-    iPres  = 5 #idHeader['Pressure']
+    iCons4 = 3 #idHeader['Z-Momentum']
+    iPres  = 7 #idHeader['Pressure']
     
     #for iVer in range(10):
     #    
@@ -570,8 +570,8 @@ def HF_Compute_Thrust (options):
             vel  = math.sqrt(velx*velx+vely*vely+velz*velz)
             pres = Sol[iVer][iPres]
             
-            Thrust += area/3.0*(dens*vel*(vel-vel_inf)+pres-pres_inf)
-    
+            Thrust += area/3.0*((dens*velx*(velx-vel_inf)+(pres-pres_inf))**2.0 + (dens*velx*velz)**2.0)**0.5
+
     Thrust = 2*Thrust # symmetry
     
     print "THRUST %lf" % Thrust
